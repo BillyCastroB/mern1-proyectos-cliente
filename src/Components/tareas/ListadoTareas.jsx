@@ -18,22 +18,28 @@ export const ListadoTareas = () => {
 
     const [proyectoActual] = proyecto;
 
-  return (
-    <>
-        <h2>Proyecto: {proyectoActual.nombre}</h2>
-        <ul className='listado-tareas'>
-            {tareasproyecto.length === 0? <p>No hay Tareas</p>: tareasproyecto.map(tarea=>(
-                <Tarea
-                    key={tarea.id}
-                    tarea={tarea}
-                />
-            ))}
-        </ul>
-        <button
-            type='button'
-            className='btn btn-eliminar'
-            onClick={()=>eliminarPROYECTO(proyectoActual._id)}
-        >Eliminar Proyecto &times;</button>
-    </>
-  )
+    return (
+        <>
+            <h2>Proyecto: {proyectoActual.nombre}</h2>
+            <ul className='listado-tareas'>
+                {(!tareasproyecto || tareasproyecto.length === 0) ? (
+                    <p>No hay Tareas</p>
+                ) : (
+                    tareasproyecto.map(tarea => (
+                        <Tarea
+                            key={tarea._id}
+                            tarea={tarea}
+                        />
+                    ))
+                )}
+            </ul>
+            <button
+                type='button'
+                className='btn btn-eliminar'
+                onClick={() => eliminarPROYECTO(proyectoActual._id)}
+            >
+                Eliminar Proyecto &times;
+            </button>
+        </>
+    );
 }

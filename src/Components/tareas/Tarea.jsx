@@ -12,7 +12,7 @@ export const Tarea = ({tarea}) => {
 
     const onclickEliminar = (id)=>{
         eliminarTAREA(id);
-        obtenerTAREAS(proyectoActual.id);
+        obtenerTAREAS(proyectoActual._id);
     }
 
     const cambiarEstado = tarea =>{

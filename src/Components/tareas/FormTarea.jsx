@@ -27,6 +27,7 @@ const handelChange = e =>{
 }
 
 const [proyectoActual] = proyecto;
+
 const onSubmitTarea = e =>{
   e.preventDefault();
   if(nombre.trim() === ''){
@@ -35,10 +36,10 @@ const onSubmitTarea = e =>{
   }
 
   tarea.estado = false;
-  tarea.proyectoId = proyectoActual.id;
+  tarea.proyecto = proyectoActual._id;
   agregarTAREA(tarea);
 
-  obtenerTAREAS(proyectoActual.id);
+  obtenerTAREAS(proyectoActual._id);
 
   setTarea({
     nombre: ''
