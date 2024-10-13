@@ -1,7 +1,7 @@
 import React, {useReducer} from 'react'
 import tareaContext from './tareaContext'
 import tareaReducer from './tareaReducer'
-import { TAREAS_PROYECTO, AGREGAR_TAREA, VALIDAR_TAREA, ELIMINAR_TAREA, ESTADO_TAREA,TAREA_ACTUAL } from '../../types/type'
+import { TAREAS_PROYECTO, AGREGAR_TAREA, VALIDAR_TAREA,ACTUALIZAR_TAREA , ELIMINAR_TAREA, ESTADO_TAREA,TAREA_ACTUAL } from '../../types/type'
 import clienteAxios from '../../../config/axios'
 export const TareaState = props => {
     
@@ -43,17 +43,28 @@ export const TareaState = props => {
         type: VALIDAR_TAREA
       })
     }
-    const eliminarTAREA = id =>{
-      dispatch({
-        type: ELIMINAR_TAREA,
-        payload: id
-      })
+    const eliminarTAREA = async (id, proyecto) =>{
+      await clienteAxios.delete(`/tareas/${id}`, {params: {proyecto}} )
+      try {
+        dispatch({
+          type: ELIMINAR_TAREA,
+          payload: id
+        })
+      } catch (error) {
+        console.log(error);
+      }
     }
-    const modificarESTADO = tarea =>{
-      dispatch({
-        type: ESTADO_TAREA,
-        payload: tarea
-      })
+    const actualizarTarea = async tarea =>{
+      try {
+        const resultado = await clienteAxios.put(`/tareas/${tarea._id}`, tarea)
+        console.log(tarea);
+        dispatch({
+          type: ACTUALIZAR_TAREA,
+          payload: resultado.data
+        })
+      } catch (error) {
+        console.log(error);
+      }
     }
     const guardartareaACTUAL = tarea=>{
       dispatch({
@@ -71,8 +82,8 @@ export const TareaState = props => {
         agregarTAREA,
         validarTAREA,
         eliminarTAREA,
-        modificarESTADO,
-        guardartareaACTUAL
+        guardartareaACTUAL,
+        actualizarTarea
       }}
     >
       {props.children}

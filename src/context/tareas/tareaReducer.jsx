@@ -1,4 +1,4 @@
-import { TAREAS_PROYECTO, AGREGAR_TAREA, VALIDAR_TAREA, ELIMINAR_TAREA, ESTADO_TAREA, TAREA_ACTUAL } from "../../types/type";
+import { TAREAS_PROYECTO, AGREGAR_TAREA, VALIDAR_TAREA, ELIMINAR_TAREA, ACTUALIZAR_TAREA, TAREA_ACTUAL } from "../../types/type";
 export default (state, action)=>{
     switch(action.type){
         case TAREAS_PROYECTO:
@@ -20,12 +20,12 @@ export default (state, action)=>{
         case ELIMINAR_TAREA:
             return{
                 ...state,
-                tareasproyecto: state.tareasproyecto.filter(tarea => tarea.id !== action.payload )
+                tareasproyecto: state.tareasproyecto.filter(tarea => tarea._id !== action.payload )
             }
-        case ESTADO_TAREA:
+        case ACTUALIZAR_TAREA:
             return{
                 ...state,
-                tareasproyecto: state.tareasproyecto.map(tarea => tarea.id === action.payload.id ? action.payload : tarea)
+                tareasproyecto: state.tareasproyecto.map(tarea => tarea._id === action.payload._id ? action.payload : tarea)
             }
         case TAREA_ACTUAL:
             return{
